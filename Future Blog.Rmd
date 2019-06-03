@@ -1,0 +1,109 @@
+---
+author: Joanna Jaimes
+title: "Future Blog"
+date: "4/30/2019"
+output:
+  bookdown::gitbook: default
+  html_document: 
+    code_folding: hide
+    number_sections: yes
+    toc: yes
+    toc_float: no
+  ioslides_presentation: default
+  pdf_document:
+    number_sections: yes
+    toc: yes
+  slidy_presentation: default
+  word_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,
+                      warning = FALSE)
+
+```
+
+## Background
+
+Here is a hopefully helpful template for your final portfolio.
+
+## Your Libraries
+
+
+```{r}
+
+# I've commented out the install.packages()
+
+# install.packages("ggplot2")
+library(ggplot2)
+# install.packages("bookdown")
+library(bookdown)
+
+
+```
+
+## First Section
+
+```{r}
+
+# I've commented out your data
+# Since I don't know where it is on disk.
+# But I made up my own H13PR :-)
+
+# load("H13PR.RData")
+
+# MADE UP DATA
+
+H13PR <- data.frame(age = rnorm(100, 20, 5),
+                    s5 = c(rep("male", 50),
+                           rep("female", 50)))
+
+library(ggplot2)
+
+# I COMMENTED SOME THINGS OUT TO TWEAK THE GGPLOT
+
+ggplot(H13PR, 
+       aes(x = as.numeric(age),
+           fill = as.factor(s5))) +
+  # geom_density(alpha = .5) + COMMENTED OUT
+  geom_histogram() +
+  # geom_dotplot(binwidth = 1.5) + COMMENTED OUT
+  scale_fill_manual(name = "Gender",
+                    values = c("blue", 
+                               "pink"),
+                    labels = c("Male",
+                               "Female")) +
+  labs(title = "Participant Age") +
+  theme(axis.text.y = element_blank()) +
+  facet_wrap(~s5)
+
+```
+
+## Second Section
+
+A hypothetical ggplot2 graph.
+
+```{r}
+
+
+```
+
+## Third Section
+
+An image of my Tableau dashboard.
+
+
+## Fourth Section
+
+An image of my QGIS map.
+
+
+
+
+
+
+
+
