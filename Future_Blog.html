@@ -132,54 +132,56 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="your-libraries" class="section level2">
 <h2><span class="header-section-number">0.2</span> Your Libraries</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># I&#39;ve commented out the install.packages()</span>
-
-<span class="co"># install.packages(&quot;ggplot2&quot;)</span>
-<span class="kw">library</span>(ggplot2)
-<span class="co"># install.packages(&quot;bookdown&quot;)</span>
-<span class="kw">library</span>(bookdown)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
 </div>
 <div id="first-section" class="section level2">
 <h2><span class="header-section-number">0.3</span> First Section</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># I&#39;ve commented out your data</span>
-<span class="co"># Since I don&#39;t know where it is on disk.</span>
-<span class="co"># But I made up my own H13PR :-)</span>
-
-<span class="co"># load(&quot;H13PR.RData&quot;)</span>
-
-<span class="co"># MADE UP DATA</span>
-
-H13PR &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">age =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">20</span>, <span class="dv">5</span>),
-                    <span class="dt">s5 =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;male&quot;</span>, <span class="dv">50</span>),
-                           <span class="kw">rep</span>(<span class="st">&quot;female&quot;</span>, <span class="dv">50</span>)))
-
-<span class="kw">library</span>(ggplot2)
-
-<span class="co"># I COMMENTED SOME THINGS OUT TO TWEAK THE GGPLOT</span>
-
-<span class="kw">ggplot</span>(H13PR, 
-       <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.numeric</span>(age),
-           <span class="dt">fill =</span> <span class="kw">as.factor</span>(s5))) <span class="op">+</span>
-<span class="st">  </span><span class="co"># geom_density(alpha = .5) + COMMENTED OUT</span>
-<span class="st">  </span><span class="kw">geom_histogram</span>() <span class="op">+</span>
-<span class="st">  </span><span class="co"># geom_dotplot(binwidth = 1.5) + COMMENTED OUT</span>
-<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">name =</span> <span class="st">&quot;Gender&quot;</span>,
-                    <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, 
-                               <span class="st">&quot;pink&quot;</span>),
-                    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Male&quot;</span>,
-                               <span class="st">&quot;Female&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Participant Age&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>()) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>s5)</code></pre></div>
-<p><img src="Future_Blog_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="second-section" class="section level2">
 <h2><span class="header-section-number">0.4</span> Second Section</h2>
 <p>A hypothetical ggplot2 graph.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(tidycensus)
+<span class="kw">library</span>(tidyverse)
+
+
+<span class="co"># Cook County</span>
+
+<span class="kw">options</span>(<span class="dt">tigris_use_cache =</span> <span class="ot">TRUE</span>)
+<span class="kw">census_api_key</span>(<span class="st">&quot;17e59deb2d792b9cc8f347008312d9386d202672&quot;</span>)
+Cook &lt;-<span class="st"> </span><span class="kw">get_acs</span>(<span class="dt">state =</span> <span class="st">&quot;IL&quot;</span>, 
+                <span class="dt">county =</span> <span class="st">&quot;Cook&quot;</span>, 
+                <span class="dt">geography =</span> <span class="st">&quot;tract&quot;</span>,
+                <span class="dt">variables =</span> <span class="st">&quot;B19013_001&quot;</span>, 
+                <span class="dt">geometry =</span> <span class="ot">TRUE</span>)
+
+Cook <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>estimate)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Census Map of Cook County&quot;</span>, 
+       <span class="dt">subtitle =</span> <span class="st">&quot;Median Family Income&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</code></pre></div>
+<p><img src="Future_Blog_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Lake County</span>
+
+<span class="kw">options</span>(<span class="dt">tigris_use_cache =</span> <span class="ot">TRUE</span>)
+<span class="kw">census_api_key</span>(<span class="st">&quot;17e59deb2d792b9cc8f347008312d9386d202672&quot;</span>)
+Lake &lt;-<span class="st"> </span><span class="kw">get_acs</span>(<span class="dt">state =</span> <span class="st">&quot;IL&quot;</span>, 
+                <span class="dt">county =</span> <span class="st">&quot;Lake&quot;</span>, 
+                <span class="dt">geography =</span> <span class="st">&quot;tract&quot;</span>,
+                <span class="dt">variables =</span> <span class="st">&quot;B19013_001&quot;</span>, 
+                <span class="dt">geometry =</span> <span class="ot">TRUE</span>)
+
+Lake <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>estimate)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Census Map of Lake County&quot;</span>, 
+       <span class="dt">subtitle =</span> <span class="st">&quot;Median Family Income&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</code></pre></div>
+<p><img src="Future_Blog_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 </div>
 <div id="third-section" class="section level2">
 <h2><span class="header-section-number">0.5</span> Third Section</h2>
-<p>An image of my Tableau dashboard.</p>
 </div>
 <div id="fourth-section" class="section level2">
 <h2><span class="header-section-number">0.6</span> Fourth Section</h2>
