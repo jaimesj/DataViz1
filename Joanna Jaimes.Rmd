@@ -1,0 +1,140 @@
+---
+author: Joanna Jaimes
+title: "Joanna A. Jaimes"
+date: "7/3/2019"
+output:
+  html_document: 
+    css: styles[7210].css
+    code_folding: hide
+    number_sections: no
+    toc: yes
+    toc_float: yes
+  bookdown::gitbook: default
+  slidy_presentation: default
+  pdf_document:
+    number_sections: yes
+    toc: yes
+  ioslides_presentation: default
+  word_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,
+                      warning = FALSE)
+
+```
+
+
+## Welcome! {.tabset .tabset-fade .tabset-pills}
+
+
+```{r}
+library(ggplot2)
+library(tidycensus)
+library(tidyverse)
+library(mapview)
+
+```
+
+### Introduction 
+Hi everyone! My name is Joanna Jaimes- welcome to a space where I will share a little bit of everything. You can expect this space to be a one where I will share everything from traditional blog-posty materials to emerging professional tips guides. I've also highlighed some of my work in case that is of interest to anyone. 
+
+I decided to start a blog of sorts, because I realized that I had the desire to share my experiences with others, and I also had the means to do so in an innovative way. The site that you are looking at now has been developed using the statistical software, R. R is a free statistical software enviornment that is capable of anything from creating data vizualizations to webistes. This semester, I took on the challenge of practicing coding language to put together a blog.  
+
+### Life Update
+Last spring 2018, I graduated from Calvin College with my BSW (Bachelor of Social Work) and BA in Political Science. Currently, I'm living in Ypsilanti, Michigan, going to school in Ann Arbor, Michigan, and interning in Toledo, Ohio. I'm earning my graduate degree in social work with a concentration in social policy and evaluation from the Unviersity of Michigan's School of Social Work. I'm proud to be at the #1 rated program in the nation for social work. I do not plan to stop here. I've also been admitted to the Brown School's Predoctoral Summer Institute. The goal of this program is to prepare me to be a competitive doctoral applicant. Ultimately, my goal is to do research in the immigration or juvenile justice field and get involved in politics. 
+
+### Where I'm From
+No, I'm not from Chicago. Let's get that out of the way! I'm from a northwest suburb called Vernon Hills. I've lived there most of my teenage life. Vernon Hills lies within Lake County limits and is the northern county located above Cook County, where Chicago is located. I've extracted median family income data from the previous Census to compare the two counties. Two of the maps below are interactive!
+
+```{r}
+# Lake County
+
+options(tigris_use_cache = TRUE)
+census_api_key("17e59deb2d792b9cc8f347008312d9386d202672")
+Lake <- get_acs(state = "IL", 
+                county = "Lake", 
+                geography = "tract",
+                variables = "B19013_001", 
+                geometry = TRUE)
+
+Lake %>%
+  ggplot(aes(fill=estimate)) +
+  geom_sf() +
+  labs(title = "Census Map of Lake County", 
+       subtitle = "Median Family Income") +
+  scale_fill_viridis_c()
+
+mapview(Lake, zcol = "estimate", legend = TRUE, layer.name="Median Family Income")
+
+# Cook County
+
+options(tigris_use_cache = TRUE)
+census_api_key("17e59deb2d792b9cc8f347008312d9386d202672")
+Cook <- get_acs(state = "IL", 
+                county = "Cook", 
+                geography = "tract",
+                variables = "B19013_001", 
+                geometry = TRUE)
+
+Cook %>%
+  ggplot(aes(fill=estimate)) +
+  geom_sf() +
+  labs(title = "Census Map of Cook County", 
+       subtitle = "Median Family Income") +
+  scale_fill_viridis_c()
+
+mapview(Cook, zcol = "estimate", legend = TRUE, layer.name="Median Family Income")
+
+
+
+```
+
+## Graduate School Experience {.tabset .tabset-fade .tabset-pills}
+### ¿Nada más son 4 años y después regresas a la casa, no?
+This saying is one that I heard my mom say to me as I began my undergraduate studies. "Just 4 years and you'll be back home, right?" 5 years later, a handful of internships, study abroads, and one master's degree later, I can say she was close! One of the more difficult parts about being a first generation, Latinx student, was leaving my family for months at a time. This is an experience that many college students have, and in our American culture, it is celebrated. I too was celebrated, but there tradeoffs along the way. I've been doing this for five years now. I can talk more about how I ended up in Michigan in the next post. All of that to say, this higher education journey is not as luxurious as it looks. There is sacrifce, restless nights, extreme budgeting, and homesickness attached to it.
+
+### Lo que no te enseñan en la escuela
+Being that I'm a first generation college student, everything that I did was new and intimidating. In social work, we're taught how to advocate for others on all levels, whether that is direct practice or through legislative means. One thing that I did not learn directly was how to advocate for myself. It is assumed that we know what we're doing if we don't ask questions. Or maybe our professors notice that we are lost, but do not reach out for various reasons. It was not until this year that I can remember a time where I advocated for my own needs. An example is accessing additional financial aid from my school via writing additional statements.
+
+These types of lessons are unspoken.
+
+```{r}
+
+
+```
+
+## Selected Research {.tabset .tabset-fade .tabset-pills}
+### My interests
+I enjoy working with data. I like to use numbers as evidence of real life, relevant social issues. I plan to continue to develop skills that will strengthen these abilities. I mentioned earlier that I'm working in Toledo. My Masters internship is at the Human Trafficking and Social Justice Institute. I work on projects such as grant writing and serve as the human trafficking prevention curriculum coordinator. I'm interested in the intersections of immigration and juvenile justice and how they could lead to human trafficking. 
+
+On a lighter note, I also enjoy various types of self care. For me, this looks like spending the afternoon with the group of Latina women who have been my support system since the very first day of this program. As your could probably gather, I enjoy spending time with my family whenever I get the chance to visit home. I'm also trying to be better about reading. Recently, I've started "The New Latina's Bible" by Sandra Guzman. By popular demand, I will eventually create a lifestyle section for those interested in learning more about my OOTDs!
+
+### Latinx Critical Race Theory
+![Social Change Theories Lecture](Latcrit.png)
+
+### Illinois Child Mental Health Local Fund HB 0219: Re-referred to Rules Committee
+![CLIF- Recommended Policy Solutions. Policy Brief](brief1.png)
+
+![](brief2.png)
+
+![](brief3.png)
+
+![](brief4.png)
+
+## Nuestra Experiencia Latina {.tabset .tabset-fade .tabset-pills}
+### In Higher Education
+There came a time when I stopped putting so much emphasis on how others perceived me in the spaces I was occupying, and instead focused on my work and on the greater mission. There have been multiple times where I've been the only POC in my classrooms, meetings, internships, and entire offices. There is a weight that comes with this reality. This feeling of persistence, yet feeling out of place, I know it all too well. I enter spaces with a willngness to learn and welcome others. Although, I am on a continuous journey of healing and using my voice and skills where they are most needed. 
+
+
+
+
+
+
+
+
+
+
