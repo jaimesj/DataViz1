@@ -1,14 +1,15 @@
 ---
 author: Joanna Jaimes
-title: "Future Blog"
-date: "4/30/2019"
+title: "A Caboose is Loose"
+date: "7/3/2019"
 output:
-  bookdown::gitbook: default
   html_document: 
+    css: styles[7210].css
     code_folding: hide
-    number_sections: yes
+    number_sections: no
     toc: yes
-    toc_float: no
+    toc_float: yes
+  bookdown::gitbook: default
   slidy_presentation: default
   pdf_document:
     number_sections: yes
@@ -26,36 +27,40 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ```
 
-## Background
+## Welcome! {.tabset .tabset-fade .tabset-pills}
 
-Here is a hopefully helpful template for your final portfolio.
+Introduce yourself and write a blurb about why you wanted to start this website.
 
-## Your Libraries
-
-
-```{r}
-
-library(ggplot2)
-
-
-```
-
-## First Section
-
-```{r}
-
-
-```
-
-## Second Section
-
-A hypothetical ggplot2 graph.
 
 ```{r}
 library(ggplot2)
 library(tidycensus)
 library(tidyverse)
+library(mapview)
 
+```
+
+### Where I'm From
+
+```{r}
+# Lake County
+
+options(tigris_use_cache = TRUE)
+census_api_key("17e59deb2d792b9cc8f347008312d9386d202672")
+Lake <- get_acs(state = "IL", 
+                county = "Lake", 
+                geography = "tract",
+                variables = "B19013_001", 
+                geometry = TRUE)
+
+Lake %>%
+  ggplot(aes(fill=estimate)) +
+  geom_sf() +
+  labs(title = "Census Map of Lake County", 
+       subtitle = "Median Family Income") +
+  scale_fill_viridis_c()
+
+mapview(Lake, zcol = "estimate", legend = TRUE, layer.name="Median Family Income")
 
 # Cook County
 
@@ -74,33 +79,41 @@ Cook %>%
        subtitle = "Median Family Income") +
   scale_fill_viridis_c()
 
+mapview(Cook, zcol = "estimate", legend = TRUE, layer.name="Median Family Income")
 
-# Lake County
 
-options(tigris_use_cache = TRUE)
-census_api_key("17e59deb2d792b9cc8f347008312d9386d202672")
-Lake <- get_acs(state = "IL", 
-                county = "Lake", 
-                geography = "tract",
-                variables = "B19013_001", 
-                geometry = TRUE)
-
-Lake %>%
-  ggplot(aes(fill=estimate)) +
-  geom_sf() +
-  labs(title = "Census Map of Lake County", 
-       subtitle = "Median Family Income") +
-  scale_fill_viridis_c()
 
 ```
 
-## Third Section
+## Graduate School Experience {.tabset .tabset-fade .tabset-pills}
+### ¿Nada más son 4 años y después regresas a la casa, no?
+### Lo que no te enseñan en la escuela
+
+
+```{r}
+
+
+```
+
+## Selected Research {.tabset .tabset-fade .tabset-pills}
+### Latinx Critical Race Theory
+![Social Change Theories Lecture](Latcrit.png)
+
+### Illinois Child Mental Health Local Fund HB 0219: Re-referred to Rules Committee
+![CLIF- Recommended Policy Solutions. Policy Brief](brief1.png)
+
+![](brief2.png)
+
+![](brief3.png)
+
+![](brief4.png)
+
+## Nuestra Experiencia Latina {.tabset .tabset-fade .tabset-pills}
+### In Higher Education
+### In the US
 
 
 
-## Fourth Section
-
-An image of my QGIS map.
 
 
 
