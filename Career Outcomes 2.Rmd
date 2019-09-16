@@ -1,0 +1,132 @@
+---
+title: 'Joanna Jaimes: Career Outcomes IR'
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Welcome
+
+Hello! This document will serve to display the Career Outcomes data work that I will be doing throughout the summer. 
+
+## Observations about te Career Outcomes Data Set
+
+Earliest year is 1999. Most recent date is 2018.
+Various countries represented in the data. For example, 1021 graduates have come from Thailand, 79 from Uruguay, and 272 from Mexico.
+
+```{r}
+
+library(haven)
+careeroutcomes <- read_sas("careeroutcomes.sas7bdat")
+
+library(haven)
+careeroutcomes <- read_sas("careeroutcomes.sas7bdat", 
+    NULL)
+View(careeroutcomes)
+
+# summaries
+# summary(careeroutcomes$Degree)
+# summary(careeroutcomes$Chairs)
+# summary(careeroutcomes$JobType)
+# summary(careeroutcomes)
+# summary(careeroutcomes$citizenship_status_descr)
+
+
+#tables
+
+table(careeroutcomes$Calendar_Yr) 
+table(careeroutcomes$citizenship_country_descr) 
+table(careeroutcomes$Deg_FY)
+
+
+# library(psych)
+# describe(careeroutcomes)
+```
+
+## Do graduates from particular fields of study pursue post doctoral positions more often than other fields of study?
+
+```{r}
+# Jobs and Field of study 
+
+library(dplyr)
+
+# Base R
+
+table(careeroutcomes$rack_division_descr)
+
+table(careeroutcomes$rack_division_descr,
+      careeroutcomes$JobType)
+
+# dplyr
+
+
+library(ggplot2)
+
+careeroutcomes%>%
+  group_by(JobType,rack_division_descr) %>% 
+  tally()%>%
+  ggplot(aes(x = rack_division_descr, 
+             y=n,
+             fill = rack_division_descr)) + geom_bar(stat="identity") + facet_wrap(~JobType)
+
+
+```
+
+## Narrowing in Using SinceGrad_Yr
+
+
+```{r}
+
+# Isoloate Years
+SinceGrad1 <- careeroutcomes %>% filter(SinceGrad_Yr==1)
+SinceGrad2 <- careeroutcomes %>% filter(SinceGrad_Yr==2)
+SinceGrad3 <- careeroutcomes %>% filter(SinceGrad_Yr==3)
+SinceGrad4 <- careeroutcomes %>% filter(SinceGrad_Yr==4)
+SinceGrad5 <- careeroutcomes %>% filter(SinceGrad_Yr==5)
+SinceGrad6 <- careeroutcomes %>% filter(SinceGrad_Yr==6)
+SinceGrad7 <- careeroutcomes %>% filter(SinceGrad_Yr==7)
+SinceGrad8 <- careeroutcomes %>% filter(SinceGrad_Yr==8)
+SinceGrad9 <- careeroutcomes %>% filter(SinceGrad_Yr==9)
+SinceGrad10 <- careeroutcomes %>% filter(SinceGrad_Yr==10)
+SinceGrad11 <- careeroutcomes %>% filter(SinceGrad_Yr==11)
+SinceGrad12 <- careeroutcomes %>% filter(SinceGrad_Yr==12)
+SinceGrad13 <- careeroutcomes %>% filter(SinceGrad_Yr==13)
+SinceGrad14 <- careeroutcomes %>% filter(SinceGrad_Yr==14)
+SinceGrad15 <- careeroutcomes %>% filter(SinceGrad_Yr==15)
+SinceGrad16 <- careeroutcomes %>% filter(SinceGrad_Yr==16)
+SinceGrad17 <- careeroutcomes %>% filter(SinceGrad_Yr==17)
+SinceGrad18 <- careeroutcomes %>% filter(SinceGrad_Yr==18)
+SinceGrad19 <- careeroutcomes %>% filter(SinceGrad_Yr==19)
+SinceGrad20 <- careeroutcomes %>% filter(SinceGrad_Yr==20)
+
+  
+  
+SinceGrad1 %>%
+  arrange(JobType) %>%
+  tally()
+  ggplot(SinceGrad1,
+         aes(x = JobType,
+             fill =as.factor(rack_division_descr))) + 
+  geom_bar() +
+    scale_fill_viridis_d() +
+    ylim(-1000, 2500) +
+    theme( 
+          panel.grid = element_blank(), 
+          plot.margin = unit(rep(-1,100), "cm",)) +
+    coord_polar(start = 0) 
+    
+   
+    
+
+```
+
+
+```{r, echo=FALSE}
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
