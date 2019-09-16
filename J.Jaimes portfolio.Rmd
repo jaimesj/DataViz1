@@ -1,0 +1,139 @@
+---
+title: "Portfolio"
+author: "Joanna A. Jaimes"
+date: "9/1/2019"
+output:
+  html_document: 
+    number_sections: no
+    toc: yes
+    toc_float: yes
+    code_folding: hide
+  pdf_document: 
+    number_sections: yes
+    toc: yes
+  slidy_presentation: default
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,
+                      warning = FALSE)
+
+```
+
+## Introduction {.tabset .tabset-fade .tabset-pills}
+
+```{r}
+
+library(ggplot2)
+library(wesanderson)
+
+```
+Throughout this semester, I worked with three data sets to create data visualisations. The social justice issues that I focused on were US immigration, Venezuelan asylum seekers, and the state of juvenile justice in Michigan.
+
+### Why These Issues Are Important 
+
+These are important issues, because both immigration and criminal justice are issues that social workers should be actively involved in advancing. I am passionate about immigration, because as a daughter of immigrants, I aim to work with Latinx folks and further my community's well-being. Part of that work begins with surveying the opinions and needs of the US Latinx community. This work is especially important as we are under an administration that has shown no effort to uplift this group of people. I used R to highlight Latinx responses.
+
+Another issue that I care about is the current crisis in Venezuela. This issue is important, because it is a current example of social injustice. Venezuela faces turmoil from recent and frequent energy blackouts all over the country, scarce access to medication and food, and political instability. The effects of this crisis are remarkably severe. The data collected displays countries outside of Latin America where Venezuelans founds asylum in 2018. Millions of people in Venezuela are affected by the crisis. A possible consequence of this migration is overcrowding due to influx of people as well as depletion of other country's resources. The social justice implications outweigh these consequences.
+
+Lastly, juvenile justice is a pressing issue in Michigan. Michigan is one of 4 states that treats 17 year olds as adults in the justice system. Analyzing juvenile justice cases is important, because social workers, especially at the policy level, can be helpful in advocating for diversion options for youth. We know that disproportionate minority contact is a real issue, and this data can help us gain a clearer picture of sentencing disparities as well. Opponents of raise the age legislation often cite price increases, but raising the age will actually cost the tax payer less in the long run. 
+
+### Predictors or Consequences that I Investigated
+
+For this section, I will be using UN Venezuela data.
+
+![Diagram](venpcimage.png)
+
+## Data Used {.tabset .tabset-fade .tabset-pills}
+
+### 2013 PEW Survey on Hispanics
+
+PEW Reseach Center collected this data in 2013. There are 701 participants in the data. They are from all over the United States. This data was used in R.
+
+### United Natons-Venezuela
+The United Nations collected the number of asylum seekers who fled Venezuela and went to countries outside of Latin America in 2018. There are 1280 participants in this data. This data was used in GIS.
+
+### Michigan Department of Health and Human Services- Juvenile Justice 
+
+This data was collected by all counties in Michigan, which is then reported to the MDHHS. The data collected is from 2008-2018 and has 125,945 participants. This data was used in Tableau.
+
+```{r}
+
+
+```
+
+## Work in R {.tabset .tabset-fade .tabset-pills}
+
+### Base R
+
+```{r}
+
+load("~/WINTER 2019/H13PR.RData")
+
+H13PR$im29 <- factor(H13PR$im29,
+                     levels = c(1,2,3,9),
+                     labels = c("A lot",
+                                "A Little",
+                                "Nothing At All",
+                                "Don't Know"))
+
+library(ggplot2)
+
+ggplot(H13PR,
+       aes(x = im29,
+           fill = as.factor(im29))) + 
+  geom_bar() +
+  labs(title = "How much would you say you know about the immigration system in the U.S.?",
+       x = "Knowledge") +
+  scale_fill_viridis_d(name = "Knowledge")
+
+
+
+H13PR$im20 <- factor(H13PR$im20,
+                     levels = c(1,2,3,4,9),
+                     labels = c("Live & work, no threat of deportation", 
+                                "Pathway to citizenship", 
+                                "Neither", 
+                                "Both Equally", 
+                                "Don't Know"))
+     
+```
+### GGPLOT
+
+```{r}
+
+library(ggplot2)
+
+ggplot(H13PR, 
+       aes(x = s5,
+           fill =as.factor(s5))) +
+  geom_bar() +
+  scale_fill_viridis_d(name = "Gender", 
+                       labels = c("Male", 
+                                  "Female")) +
+  labs(title = "Gender of Participants in 2013 PEW Hispanic Survey on Hispanics", 
+       x = "Gender", 
+       y = "Number of Participants")
+
+```
+
+## Work in GIS
+
+An image of my QGIS map.
+
+![Countries Where Vennezuelans Found Asylum in 2018](venAS.png)
+
+## Work in Tableau
+
+An image of my Tableau dashboard.
+
+![Race, Gender,and Location of Juveniles Involved in MI JJ System](JJtableau.png)
+
+
+
+
+
+
+
